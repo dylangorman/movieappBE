@@ -117,9 +117,11 @@ router.put("/:id", async (req, res) => {
 //===================================== delete all ======================================//
 
 // delete all users
-router.delete("/deleteallusers", async (req, res) => {
-  const deletedUser = await User.destroy({ where: {} });
-  console.log(deletedUser);
-  res.status(200).json({ msg: `Deleted ${deletedUser}` });
+router.delete("/", async (req, res) => {
+  const allUsers = await User.destroy({
+    where: {},
+    truncate: false,
+  });
+  res.status(201).json({ msg: "Deleted All Users" });
 });
 module.exports = router;

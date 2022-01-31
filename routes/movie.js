@@ -32,9 +32,11 @@ router.delete("/:id", async (req, res) => {
 });
 
 // //===================================== delete (DELETE) all ======================================//
-router.delete("/deleteallmovies", async (req, res) => {
-  const deletedMovie = await Movie.destroy({ where: {} });
-  console.log(deletedMovie);
-  res.status(200).json({ msg: `Deleted ${deletedMovie}` });
+router.delete("/", async (req, res) => {
+  const allMovies = await Movie.destroy({
+    where: {},
+    truncate: false,
+  });
+  res.status(201).json({ msg: "Deleted All Movies" });
 });
 module.exports = router;
