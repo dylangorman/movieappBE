@@ -1,12 +1,8 @@
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const { User, Movie, Subscription } = require("../models/user");
-// const { user } = require("pg/lib/defaults");
-
-// const hash = require("../hash.js");
+const { User } = require("../models/user");
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const session = { session: false };
@@ -27,6 +23,7 @@ router.get("/", passport.authenticate("jwt", session), profile);
 
 //takes the authenticated req and returns a response
 const register = async (req, res, next) => {
+  console.log(req.body);
   try {
     req.user.name
       ? res.status(201).json({ msg: "user registered", user: req.user })
