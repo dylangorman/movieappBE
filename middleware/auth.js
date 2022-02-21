@@ -18,7 +18,11 @@ const register = async (name, password, next) => {
     const passwordHash = await bcrypt.hash(password, salt);
     try {
       //create user
-      const user = await User.create({
+      const user = await User.findOne({ where: { name: name } });
+      if (user) {
+        return next(null, undefined);
+      }
+      user = await User.create({
         name: name,
         passwordHash: passwordHash,
       });

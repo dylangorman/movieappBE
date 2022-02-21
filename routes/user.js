@@ -7,7 +7,7 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
 const session = { session: false };
 
-//===================================== verify user ======================================//
+//===================================== verify user "/"  ======================================//
 
 const profile = (req, res, next) => {
   res.status(200).json({
@@ -23,10 +23,10 @@ router.get("/", passport.authenticate("jwt", session), profile);
 
 //takes the authenticated req and returns a response
 const register = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     req.user.name
-      ? res.status(201).json({ msg: "user registered", user: req.user })
+      ? res.status(201).json({ msg: "user registered", user: req.user.id })
       : res.status(401).json({ msg: "User already exists" });
   } catch (error) {
     next(error);

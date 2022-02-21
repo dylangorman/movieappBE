@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 const connection = require("../connection");
-const { setLower, firstUpper } = require("./modelHelpers");
+// const { setLower, firstUpper } = require("./modelHelpers");
 const hash = require("../hash");
-const { set } = require("express/lib/application");
+// const { set } = require("express/lib/application");
 
 //User schema, table of users with passwords
 const User = connection.define(
@@ -12,13 +12,13 @@ const User = connection.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      get() {
-        const rawValue = this.getDataValue("name");
-        return firstUpper(rawValue);
-      },
-      set(value) {
-        this.setDataValue("name", setLower(value));
-      },
+      // get() {
+      //   const rawValue = this.getDataValue("name");
+      //   return firstUpper(rawValue);
+      // },
+      // set(value) {
+      //   this.setDataValue("name", setLower(value));
+      // },
     },
 
     passwordHash: {
@@ -26,7 +26,7 @@ const User = connection.define(
       allowNull: false,
     },
   },
-  { indexed: [{ unique: true, fields: ["name"] }] }
+  { indexed: [{ unique: true, fields: ["id", "name"] }] }
 );
 
 //movie schema. table of movies with passwrods
@@ -36,13 +36,13 @@ const Movie = connection.define(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      get() {
-        const rawValue = this.getDataValue("title");
-        return firstUpper(rawValue);
-      },
-      set(value) {
-        this.setDataValue("title", setLower(value));
-      },
+      // get() {
+      //   const rawValue = this.getDataValue("title");
+      //   return firstUpper(rawValue);
+      // },
+      // set(value) {
+      //   this.setDataValue("title", setLower(value));
+      // },
     },
     actor: {
       type: DataTypes.STRING,
@@ -54,7 +54,7 @@ const Movie = connection.define(
     },
   },
 
-  { indexed: [{ unique: true, fields: ["title"] }] }
+  { indexed: [{ unique: true, fields: ["id", "title"] }] }
 );
 
 module.exports = { User, Movie };
