@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-const { User } = require("../models/user");
+const { User, Movie, Subscription } = require("../models/user");
 // const { user } = require("pg/lib/defaults");
 
 // const hash = require("../hash.js");

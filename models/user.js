@@ -12,6 +12,13 @@ const User = connection.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      get() {
+        const rawValue = this.getDataValue("name");
+        return firstUpper(rawValue);
+      },
+      set(value) {
+        this.setDataValue("name", setLower(value));
+      },
     },
 
     passwordHash: {
@@ -46,7 +53,34 @@ const Movie = connection.define(
       allowNull: false,
     },
   },
+
   { indexed: [{ unique: true, fields: ["title"] }] }
 );
+const Subscription = connection.define(
+  "Subscription",
+  {
+    movie_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    movie_title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    movie_actor: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    movie_year: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  { indexed: [{ unique: true, fields: ["movie_id", "user_id"] }] }
+);
 
-module.exports = { User, Movie };
+module.exports = { User, Movie, Subscription };
